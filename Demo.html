@@ -4,47 +4,49 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>：jQuery省市区三级联动插件city-picker</title>
+<title>CityPicker Demo</title>
 
-<!--可无视-->
-<link href="css/main.css" rel="stylesheet" type="text/css" />
-
-<!--必要样式-->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="css/city-picker.css" rel="stylesheet" type="text/css" />
-
-
+<link href="css/main.css" rel="stylesheet" type="text/css">
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="css/city-picker.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<main class="demo-shell" role="main">
+    <header class="demo-header">
+        <p class="eyebrow">jQuery + Bootstrap plugin · jQuery + Bootstrap 插件</p>
+        <h1>CityPicker <small>省市区三级联动选择器</small></h1>
+        <p class="demo-description">
+            Select a province, city, and district from a compact cascading picker.
+            The selected value is kept in the original input for form submission.<br>
+            从紧凑的级联选择器中选择省、市和区县，选中值会保留在原始输入框中，便于表单提交。
+        </p>
+    </header>
 
-<!-- Content -->
-<div class="container">
+    <section class="demo-card" aria-labelledby="picker-heading">
+        <h2 id="picker-heading">Three-level location selector / 省市区三级联动</h2>
+        <div class="form-group city-picker-field">
+            <label for="city-picker3">Location / 地区</label>
+            <input id="city-picker3" class="form-control" readonly type="text"
+                value="江苏省/常州市/溧阳市"
+                placeholder="Choose a province, city, and district"
+                data-toggle="city-picker">
+        </div>
 
-	<h2 class="page-header">演示</h2>
-	
-	<div class="docs-methods">
-		<form class="form-inline">
-			<div id="distpicker">
-				<div class="form-group">
-					<div style="position: relative;">
-						<input id="city-picker3" class="form-control" readonly type="text" value="江苏省/常州市/溧阳市" data-toggle="city-picker">
-					</div>
-				</div>
-				<div class="form-group">
-					<button class="btn btn-warning" id="reset" type="button">重置</button>
-					<button class="btn btn-danger" id="destroy" type="button">确定</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	
-</div>
+        <div class="demo-actions" role="group" aria-label="CityPicker actions / 操作">
+            <button class="btn btn-default" id="reset" type="button">Reset / 重置</button>
+            <button class="btn btn-primary" id="get-data" type="button">Get selected data / 获取选中数据</button>
+            <button class="btn btn-link" id="destroy" type="button">Destroy / 销毁</button>
+        </div>
+
+        <h3>API output / API 输出</h3>
+        <pre id="selected-data" class="selection-output" aria-live="polite"></pre>
+    </section>
+</main>
 
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/city-picker.data.js"></script>
 <script src="js/city-picker.js"></script>
 <script src="js/main.js"></script>
-
 </body>
 </html>

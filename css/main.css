@@ -1,3 +1,129 @@
-﻿input{
-  min-width: 360px;
+﻿body {
+  min-width: 320px;
+  padding: 32px 16px;
+  background: #f5f7fb;
+  color: #243247;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.demo-shell {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.demo-header {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #52708f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.demo-header h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #17243a;
+  font-size: 32px;
+}
+
+.demo-header h1 small {
+  display: block;
+  margin-top: 6px;
+  color: #52708f;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.demo-description {
+  max-width: 600px;
+  margin-bottom: 0;
+  color: #5b6b7f;
+  line-height: 1.6;
+}
+
+.demo-description br {
+  line-height: 2;
+}
+
+.demo-card {
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(31, 51, 73, .08);
+}
+
+.demo-card h2 {
+  margin-top: 0;
+  color: #17243a;
+  font-size: 20px;
+}
+
+.demo-card h3 {
+  margin-top: 24px;
+  color: #33465c;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.city-picker-field {
+  margin-bottom: 16px;
+}
+
+.city-picker-field label {
+  display: block;
+  margin-bottom: 7px;
+  color: #526174;
+  font-weight: 600;
+}
+
+.city-picker-field input {
+  width: 100%;
+  min-width: 0;
+}
+
+.demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.demo-actions .btn:focus,
+.demo-actions .btn:focus-visible {
+  outline: 3px solid rgba(70, 164, 255, .28);
+  outline-offset: 2px;
+}
+
+.selection-output {
+  min-height: 128px;
+  margin-bottom: 0;
+  padding: 14px;
+  overflow: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .demo-card {
+    padding: 18px;
+  }
+
+  .demo-header h1 {
+    font-size: 28px;
+  }
 }

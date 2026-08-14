@@ -1,50 +1,26 @@
 $(function () {
-
     'use strict';
 
+    var $cityPicker = $('#city-picker3');
+    var $output = $('#selected-data');
+    var $actions = $('#reset, #get-data, #destroy');
 
-    var $citypicker1 = $('#city-picker1');
+    function renderSelectedData() {
+        $output.text(JSON.stringify($cityPicker.citypicker('getData'), null, 2));
+    }
 
-    $citypicker1.citypicker();
-
-    var $citypicker2 = $('#city-picker2');
-
-    $citypicker2.citypicker({
-        province: '江苏省',
-        city: '常州市',
-        district: '溧阳市'
+    $('#reset').on('click', function () {
+        $cityPicker.citypicker('reset');
+        renderSelectedData();
     });
 
-    var $citypicker3 = $('#city-picker3');
+    $('#get-data').on('click', renderSelectedData);
 
-    $('#reset').click(function () {
-        $citypicker3.citypicker('reset');
+    $('#destroy').on('click', function () {
+        $cityPicker.citypicker('destroy');
+        $actions.prop('disabled', true);
+        $output.text('The CityPicker instance has been destroyed. Reload the demo to initialize it again.\nCityPicker 实例已销毁，请刷新页面重新初始化。');
     });
 
-    $('#destroy').click(function () {
-        $citypicker3.citypicker('destroy');
-    });
-    //
-    //$('#distpicker1').distpicker();
-    //
-    //$('#distpicker2').distpicker({
-    //  province: '---- 所在省 ----',
-    //  city: '---- 所在市 ----',
-    //  district: '---- 所在区 ----'
-    //});
-    //
-    //$('#distpicker3').distpicker({
-    //  province: '浙江省',
-    //  city: '杭州市',
-    //  district: '西湖区'
-    //});
-    //
-    //$('#distpicker4').distpicker({
-    //  placeholder: false
-    //});
-    //
-    //$('#distpicker5').distpicker({
-    //  autoSelect: false
-    //});
-
+    renderSelectedData();
 });
