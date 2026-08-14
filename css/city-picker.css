@@ -31,8 +31,10 @@
 }
 
 .city-picker-span.focus,
-.city-picker-span.open {
+.city-picker-span.open,
+.city-picker-span:focus {
     border-bottom-color: #46A4FF;
+    box-shadow: 0 2px 0 rgba(70, 164, 255, .18);
 }
 
 .city-picker-span.open > .arrow {

@@ -60,13 +60,13 @@
         render: function () {
             var p = this.getPosition(),
                 placeholder = this.$element.attr('placeholder') || this.options.placeholder,
-                textspan = '<span class="city-picker-span" style="' +
+                textspan = '<span class="city-picker-span" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" style="' +
                     this.getWidthStyle(p.width) + 'height:' +
                     p.height + 'px;line-height:' + (p.height - 1) + 'px;">' +
                     (placeholder ? '<span class="placeholder">' + placeholder + '</span>' : '') +
                     '<span class="title"></span><div class="arrow"></div>' + '</span>',
 
-                dropdown = '<div class="city-picker-dropdown" style="left:0px;top:100%;' +
+                dropdown = '<div class="city-picker-dropdown" role="listbox" style="left:0px;top:100%;' +
                     this.getWidthStyle(p.width, true) + '">' +
                     '<div class="city-select-wrap">' +
                     '<div class="city-select-tab">' +
@@ -245,7 +245,20 @@
                 }
             }).on('mousedown', function () {
                 $this.needBlur = false;
-            });
+            }).on('keydown', (this._keydownTextspan = function (e) {
+                var key = e.which || e.keyCode;
+                if (key === 13 || key === 32) {
+                    e.preventDefault();
+                    if ($this.$dropdown.is(':visible')) {
+                        $this.close();
+                    } else {
+                        $this.open();
+                    }
+                } else if (key === 27) {
+                    e.preventDefault();
+                    $this.close(true);
+                }
+            }));
 
             this.$dropdown.on('click', '.city-select a', function () {
                 var $select = $(this).parents('.city-select');
@@ -292,13 +305,13 @@
         open: function (type) {
             type = type || PROVINCE;
             this.$dropdown.show();
-            this.$textspan.addClass('open').addClass('focus');
+            this.$textspan.addClass('open').addClass('focus').attr('aria-expanded', 'true');
             this.tab(type);
         },
 
         close: function (blur) {
             this.$dropdown.hide();
-            this.$textspan.removeClass('open');
+            this.$textspan.removeClass('open').attr('aria-expanded', 'false');
             if (blur) {
                 this.$textspan.removeClass('focus');
             }
@@ -314,6 +327,7 @@
 
             this.$textspan.off('click');
             this.$textspan.off('mousedown');
+            this.$textspan.off('keydown', this._keydownTextspan);
 
             this.$dropdown.off('click');
             this.$dropdown.off('mousedown');
@@ -347,6 +361,7 @@
 
         feedText: function () {
             var text = this.getText();
+            this.$textspan.attr('aria-label', this.getVal() || this.getPlaceHolder());
             if (text) {
                 this.$textspan.find('>.placeholder').hide();
                 this.$textspan.find('>.title').html(this.getText()).show();
@@ -366,6 +381,26 @@
                     }
                 });
             return text;
+        },
+
+        getData: function () {
+            var data = {
+                value: this.getVal(),
+                province: null,
+                city: null,
+                district: null
+            };
+
+            this.$dropdown.find('.city-select').each(function () {
+                var item = $(this).data('item');
+                var type = $(this).data('count');
+                data[type] = item ? {
+                    code: item.code,
+                    address: item.address
+                } : null;
+            });
+
+            return data;
         },
 
         feedVal: function () {
@@ -543,8 +578,9 @@
     // Register as jQuery plugin
     $.fn.citypicker = function (option) {
         var args = [].slice.call(arguments, 1);
+        var returnValue = this;
 
-        return this.each(function () {
+        this.each(function () {
             var $this = $(this);
             var data = $this.data(NAMESPACE);
             var options;
@@ -560,9 +596,15 @@
             }
 
             if (typeof option === 'string' && $.isFunction(fn = data[option])) {
-                fn.apply(data, args);
+                var value = fn.apply(data, args);
+                if (typeof value !== 'undefined') {
+                    returnValue = value;
+                    return false;
+                }
             }
         });
+
+        return returnValue;
     };
 
     $.fn.citypicker.Constructor = CityPicker;
